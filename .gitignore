@@ -1,0 +1,20 @@
+*.seed
+*.log
+*.dat
+*.out
+*.pid
+*.gz
+*/logos/*
+
+node_modules
+.DS_Store
+coverage
+.idea
+.env
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+*.config
+api/swagger/logs
