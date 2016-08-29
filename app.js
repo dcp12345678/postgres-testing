@@ -34,7 +34,6 @@ http.createServer(app).listen(app.get('port'), () => {
   //straight up SQL 
   db.run("select * from person", [], function(err, people) {
     //all people
-    debugger;
     console.log('number of records returned from person table = %d', people.length);
   });
 });
@@ -42,6 +41,15 @@ http.createServer(app).listen(app.get('port'), () => {
 app.get('/', (req, res) => {
   res.contentType('text/html');
   res.send('hey there');
+});
+
+app.get('/user', function(req, res) {
+  res.status(200).json({ name: 'joey' });
+})
+
+app.get('/test', (req, res) => {
+  res.contentType('text/html');
+  res.send('test result');
 });
 
 module.exports = app;

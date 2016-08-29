@@ -3,7 +3,7 @@
  */
 'use strict';
 
-console.log('inside init!');
+console.log('inside test/common/init.js!');
 
 require('dotenv').config();
 process.env.NODE_ENV = 'test';

@@ -1,0 +1,1 @@
+select * from person p, dept d where p.dept_id = d.id;
