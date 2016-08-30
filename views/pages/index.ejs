@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body class="container">
+  <header>
+    <% include ../partials/header %>
+  </header>
+  <main>
+    <div>
+      <h1>Person records</h1>
+      <table border='1'>
+        <tr style='background-color:cyan;'>
+          <td>First Name</td>
+          <td>Last Name</td>
+          <td>Age</td>
+          <td>Address</td>
+          <td>Department</td>
+          <tr>
+            <% people.forEach(function(person) { %>
+              <tr>
+                <td>
+                  <%= person.first_name %>
+                </td>
+                <td>
+                  <%= person.last_name %>
+                </td>
+                <td>
+                  <%= person.age %>
+                </td>
+                <td>
+                  <%= person.address %>
+                </td>
+                <td>
+                  <%= person.dept_name %>
+                </td>
+              </tr>
+            <% }); %>
+      </table>
+    </div>
+  </main>
+  <footer style='margin-top:10px;'>
+    <% include ../partials/footer %>
+  </footer>
+</body>
+
+</html>

@@ -1,7 +1,10 @@
 'use strict';
 
-require('dotenv').config();
-
+const fs = require('fs');
+if (fs.existsSync('.env')) {
+  console.log('loading .env file');
+  require('dotenv').config();
+}
 const configObj = require('./config/config');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -11,6 +14,8 @@ const express = require('express');
 const massive = require('massive');
 const app = express();
 
+// set the view engine to ejs
+app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -39,8 +44,17 @@ http.createServer(app).listen(app.get('port'), () => {
 });
 
 app.get('/', (req, res) => {
-  res.contentType('text/html');
-  res.send('hey there');
+  //res.contentType('text/html');
+  //res.send('hey there');
+  db.getPeople(function(err, people) {
+    if (err) {
+      res.send('Error getting people: ' + JSON.stringify(err));
+    } else {
+      console.log('fetch was successful, number person recs returned = ' + people.length);
+      res.render('pages/index', { people: people });
+    }
+  });
+
 });
 
 app.get('/user', function(req, res) {

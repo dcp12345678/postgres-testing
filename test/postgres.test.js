@@ -1,5 +1,10 @@
 'use strict';
-require('dotenv').config();
+
+const fs = require('fs');
+if (fs.existsSync('.env')) {
+  console.log('loading .env file');
+  require('dotenv').config();
+}
 const helper = require('./common/helper');
 const api = helper.api;
 const chai = require('chai');
