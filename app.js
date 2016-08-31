@@ -44,9 +44,13 @@ http.createServer(app).listen(app.get('port'), () => {
 });
 
 app.get('/', (req, res) => {
+  console.log('inside app.get for default path');
   //res.contentType('text/html');
   //res.send('hey there');
+
+  console.log('calling db.getPeople...');
   db.getPeople(function(err, people) {
+    console.log('returned from call to db.getPeople, function was ' + (err ? 'successful' : 'unsuccessful'));
     if (err) {
       res.send('Error getting people: ' + JSON.stringify(err));
     } else {
