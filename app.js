@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.set('port', configObj.PORT || 3000);
+app.set('port', process.env.PORT || 3000);
 
 const baseUrl = 'http://localhost:' + app.get('port');
 
