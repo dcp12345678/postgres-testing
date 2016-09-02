@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
 
   console.log('calling db.getPeople...');
   db.getPeople(function(err, people) {
-    console.log('returned from call to db.getPeople, function was ' + (err ? 'successful' : 'unsuccessful'));
+    console.log('returned from call to db.getPeople, function was ' + (err ? 'unsuccessful' : 'successful'));
     if (err) {
       res.send('Error getting people: ' + JSON.stringify(err));
     } else {
