@@ -34,6 +34,23 @@ const db = massive.connectSync({
   scripts: path.join(__dirname, 'db')
 });
 
+/**
+* This method is responsible for writing err/response to response
+*
+* @param   {Object}    err       error from endpoint processing if any
+* @param   {Object}    result    result from endpoint processing if any
+* @param   {Object}    response  http response object
+*/
+function processResponse(err, result, response) {
+  if (!err && result) {
+    response.status(httpStatus.OK).json(result).end();
+  } else {
+    const statusCode = err && err.statusCode ? err.statusCode : 500;
+    const message = err && err.message ? err.message : 'Internal error processing the request';
+    response.status(statusCode).json({ code: statusCode, message: message }).end();
+  }
+}
+
 http.createServer(app).listen(app.get('port'), () => {
   console.log('express server started on port : %d', app.get('port'));
   //straight up SQL 
@@ -59,6 +76,23 @@ app.get('/', (req, res) => {
     }
   });
 
+});
+
+app.get('/addPerson', (req, res) => {
+  res.render('pages/addPerson');
+});
+
+app.post('/savePerson', (req, res) => {
+  console.log('req.body = %s\n', JSON.stringify(req.body));
+/*  
+  async.waterfall([
+    (callback) => {      
+      serviceHelper.createModel(Person, 'Person', req.body, callback);
+    }
+    ], (err, result) => {
+      utils.processResponse(err, result, res);
+    });
+*/    
 });
 
 app.get('/user', function(req, res) {
