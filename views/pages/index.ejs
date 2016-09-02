@@ -2,6 +2,15 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script>
+  $(function() {
+    $('#btnAddPerson').click(function() {
+      window.location.href = '/addPerson';
+    });
+  });
+  </script>
 </head>
 
 <body class="container">
@@ -11,7 +20,7 @@
   <main>
     <div>
       <h1>Person records</h1>
-      <table border='1'>
+      <table class='table table-striped'>
         <tr style='background-color:cyan;'>
           <td>First Name</td>
           <td>Last Name</td>
@@ -37,9 +46,10 @@
                   <%= person.dept_name %>
                 </td>
               </tr>
-            <% }); %>
+              <% }); %>
       </table>
     </div>
+    <button style="margin-top: 8px;" class='.btn-primary' id="btnAddPerson">Add</button>
   </main>
   <footer style='margin-top:10px;'>
     <% include ../partials/footer %>
