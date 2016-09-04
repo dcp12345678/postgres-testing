@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous0">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script>
   $(function() {
@@ -33,41 +34,45 @@
     <% include ../partials/header %>
   </header>
   <main>
-    <table id='tblAddPerson'>
+    <table style='width:35%; margin-top:10px;' ' id='tblAddPerson ' class='table table-striped '>
       <tr>
         <td>First Name</td>
         <td>
-          <input id='txtFirstName' type='text' />
+          <input id='txtFirstName ' type='text ' />
         </td>
       </tr>
       <tr>
         <td>Last Name</td>
         <td>
-          <input id='txtLastName' type='text' />
+          <input id='txtLastName ' type='text ' />
         </td>
       </tr>
       <tr>
         <td>Address</td>
         <td>
-          <input id='txtAddress' type='text' />
+          <input id='txtAddress ' type='text ' />
         </td>
       </tr>
       <tr>
         <td>Age</td>
         <td>
-          <input id='txtAge' type='number' />
+          <input id='txtAge ' type='number ' />
         </td>
       </tr>
       <tr>
         <td>Department</td>
         <td>
-          <select id='selDepartment' type='number' />
+          <select id='selDepartment '>
+            <% depts.forEach(function(dept) { %>
+              <option value='<%= dept.id %>'><%= dept.name %></option>
+            <% }); %>
+          </select>
         </td>
       </tr>
     </table>
-    <button id='btnSave'>Save</button>
+    <button id='btnSave '>Save</button>
   </main>
-  <footer style='margin-top:10px;'>
+  <footer style='margin-top:10px; '>
     <% include ../partials/footer %>
   </footer>
 </body>
