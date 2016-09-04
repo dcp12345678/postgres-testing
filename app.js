@@ -13,6 +13,8 @@ const http = require('http');
 const express = require('express');
 const massive = require('massive');
 const app = express();
+const co = require('co');
+const Promise = require('bluebird');
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -29,18 +31,20 @@ app.set('port', process.env.PORT || 3000);
 
 const baseUrl = 'http://localhost:' + app.get('port');
 
-const db = massive.connectSync({
+let db = massive.connectSync({
   connectionString: configObj.DATABASE_CONN_DETAILS,
   scripts: path.join(__dirname, 'db')
 });
 
+db = Promise.promisifyAll(db);
+
 /**
-* This method is responsible for writing err/response to response
-*
-* @param   {Object}    err       error from endpoint processing if any
-* @param   {Object}    result    result from endpoint processing if any
-* @param   {Object}    response  http response object
-*/
+ * This method is responsible for writing err/response to response
+ *
+ * @param   {Object}    err       error from endpoint processing if any
+ * @param   {Object}    result    result from endpoint processing if any
+ * @param   {Object}    response  http response object
+ */
 function processResponse(err, result, response) {
   if (!err && result) {
     response.status(httpStatus.OK).json(result).end();
@@ -79,20 +83,27 @@ app.get('/', (req, res) => {
 });
 
 app.get('/addPerson', (req, res) => {
-  res.render('pages/addPerson');
+  co(function*() {
+    const depts = yield db.getDepartmentsAsync();
+    console.log('depts = ' + JSON.stringify(depts));
+    res.render('pages/addPerson', { depts : depts });
+  }).catch((err) => {
+    console.log('error getting departments, err: ' + JSON.stringify(err));
+    console.error(err.stack);
+  });
 });
 
 app.post('/savePerson', (req, res) => {
   console.log('req.body = %s\n', JSON.stringify(req.body));
-/*  
-  async.waterfall([
-    (callback) => {      
-      serviceHelper.createModel(Person, 'Person', req.body, callback);
-    }
-    ], (err, result) => {
-      utils.processResponse(err, result, res);
-    });
-*/    
+  /*  
+    async.waterfall([
+      (callback) => {      
+        serviceHelper.createModel(Person, 'Person', req.body, callback);
+      }
+      ], (err, result) => {
+        utils.processResponse(err, result, res);
+      });
+  */
 });
 
 app.get('/user', function(req, res) {
