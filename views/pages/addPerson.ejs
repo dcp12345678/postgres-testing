@@ -14,7 +14,8 @@
           firstName: $('#txtFirstName').val(),
           lastName: $('#txtLastName').val(),
           address: $('#txtAddress').val(),
-          age: $('#txtAge').val()
+          age: $('#txtAge').val(),
+          dept: $('#selDepartment').val()
         },
         cache: false,
         error: function(jqXHR, textStatus, errorThrown) {
@@ -38,31 +39,31 @@
       <tr>
         <td>First Name</td>
         <td>
-          <input id='txtFirstName ' type='text ' />
+          <input id='txtFirstName' type='text ' />
         </td>
       </tr>
       <tr>
         <td>Last Name</td>
         <td>
-          <input id='txtLastName ' type='text ' />
+          <input id='txtLastName' type='text ' />
         </td>
       </tr>
       <tr>
         <td>Address</td>
         <td>
-          <input id='txtAddress ' type='text ' />
+          <input id='txtAddress' type='text ' />
         </td>
       </tr>
       <tr>
         <td>Age</td>
         <td>
-          <input id='txtAge ' type='number ' />
+          <input id='txtAge' type='number ' />
         </td>
       </tr>
       <tr>
         <td>Department</td>
         <td>
-          <select id='selDepartment '>
+          <select id='selDepartment'>
             <% depts.forEach(function(dept) { %>
               <option value='<%= dept.id %>'><%= dept.name %></option>
             <% }); %>
@@ -70,7 +71,7 @@
         </td>
       </tr>
     </table>
-    <button id='btnSave '>Save</button>
+    <button id='btnSave'>Save</button>
   </main>
   <footer style='margin-top:10px; '>
     <% include ../partials/footer %>
