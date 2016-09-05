@@ -86,7 +86,7 @@ app.get('/addPerson', (req, res) => {
   co(function*() {
     const depts = yield db.getDepartmentsAsync();
     console.log('depts = ' + JSON.stringify(depts));
-    res.render('pages/addPerson', { depts : depts });
+    res.render('pages/addPerson', { depts: depts });
   }).catch((err) => {
     console.log('error getting departments, err: ' + JSON.stringify(err));
     console.error(err.stack);
@@ -94,16 +94,15 @@ app.get('/addPerson', (req, res) => {
 });
 
 app.post('/savePerson', (req, res) => {
-  console.log('req.body = %s\n', JSON.stringify(req.body));
-  /*  
-    async.waterfall([
-      (callback) => {      
-        serviceHelper.createModel(Person, 'Person', req.body, callback);
-      }
-      ], (err, result) => {
-        utils.processResponse(err, result, res);
-      });
-  */
+  co(function*() {
+    console.log('req = %s\n', JSON.stringify(req.body));
+    yield db.insertPersonAsync(req.body.lastName, req.body.firstName, req.body.address, req.body.age, req.body.dept);
+    console.log('person inserted successfully!');
+    res.end();
+  }).catch((err) => {
+    console.log('error saving person, err: ' + JSON.stringify(err));
+    console.error(err.stack);
+  });
 });
 
 app.get('/user', function(req, res) {
